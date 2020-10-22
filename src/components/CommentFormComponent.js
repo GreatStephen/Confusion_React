@@ -29,7 +29,7 @@ class CommentForm extends Component {
         this.toggleCommentModal();
         // props.addComment is passed from Main->DishDetail->CommentForm, it will 
         // call dispatch() to let Redux add a comment into COMMENTS
-        this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.name, values.comment);
         // console.log("Current State is:" + JSON.stringify(values));
         // alert("Current State is:" + JSON.stringify(values));
     }

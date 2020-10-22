@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
-import { addComment } from '../redux/ActionCreators';
+import { postComment } from '../redux/ActionCreators';
 import {Loading} from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -86,7 +86,7 @@ const DishDetail = (props) => {
                     </div>
                     <div className='col-12 col-md-5 m-1'>
                         <RenderComments comments={props.comments} />
-                        <CommentForm dishId={props.dish.id} addComment={props.addComment}/>
+                        <CommentForm dishId={props.dish.id} postComment={props.postComment}/>
                         {/* props.addComment is a dispatch action passed from Main */}
                         {/* props.addComment will be called to add a comment to COMMENTS, this is done py dispatch() */}
                     </div>
