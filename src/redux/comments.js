@@ -1,7 +1,8 @@
 import {COMMENTS} from '../shared/comments';
 import * as ActionTypes from './ActionTypes';
 
-
+// reducer function for comments
+// take a state and an action, return the next state
 export const Comments = (state = COMMENTS, action) => {
     switch (action.type) {
         case ActionTypes.ADD_COMMENT:

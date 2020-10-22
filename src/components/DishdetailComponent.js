@@ -3,6 +3,7 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
 import { addComment } from '../redux/ActionCreators';
+import {Loading} from './LoadingComponent';
 
 function RenderDish({dish}) {
     if (dish!=null) {
@@ -41,7 +42,25 @@ function RenderComments({comments}) {
 }
 
 const DishDetail = (props) => {
-    if (props.dish!=null) {
+    if (props.isLoading) {
+        return(
+            <div className='container'>
+                <div className='row'>
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess) {
+        return(
+            <div className='container'>
+                <div className='row'>
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.dish!=null) {
         // console.log(props);
         return (
             <div className='container'>
@@ -66,6 +85,8 @@ const DishDetail = (props) => {
                     <div className='col-12 col-md-5 m-1'>
                         <RenderComments comments={props.comments} />
                         <CommentForm dishId={props.dish.id} addComment={props.addComment}/>
+                        {/* props.addComment is a dispatch action passed from Main */}
+                        {/* props.addComment will be called to add a comment to COMMENTS, this is done py dispatch() */}
                     </div>
                 </div>
 
