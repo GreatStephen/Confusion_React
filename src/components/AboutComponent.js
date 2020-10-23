@@ -1,40 +1,64 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
 
-function RenderLeader({leaders}) {
-    const leadermedia = leaders.map( leader => {
+
+function RenderLeader({leaders, isLoading, errMess}) {
+    if (isLoading) {
         return (
-            <Media>
-                <Media left top className='mt-1'>
-                    <Media className='d-flex mr-3 img-thumbnail align-self-center' object src={leader.image} alt={leader.name} />
-                </Media>
-                <Media body>
-                    <Media heading>
-                        {leader.name}
-                    </Media>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                </Media>
-            </Media>
-
+            <Loading />
         );
-    });
+    }
+    else if (errMess) {
+        return (
+            <h4>{errMess}</h4>
+        );
+    }
+    else {
+        const leadermedia = leaders.map( leader => {
+            return (
+                <Fade in>
+                    <Media >
+                        <Media left top className='mt-1'>
+                            <Media className='d-flex mr-3 img-thumbnail align-self-center' object src={baseUrl+leader.image} alt={leader.name} />
+                        </Media>
+                        <Media body>
+                            <Media heading>
+                                {leader.name}
+                            </Media>
+                            <p>{leader.designation}</p>
+                            <p>{leader.description}</p>
+                        </Media>
+                    </Media>
 
-    return (
-        <React.Fragment>
-            {leadermedia}
-        </React.Fragment>
-    );
+                </Fade>
+    
+            );
+        });
+    
+        return (
+            <React.Fragment>
+                <Stagger in>
+                   {leadermedia} 
+                </Stagger>
+                
+            </React.Fragment>
+        );
+
+    }
+
 }
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <p>Leader {leader.name}</p>
-        );
-    });
+    // const leaders = props.leaders.map((leader) => {
+    //     return (
+    //         <p>Leader {leader.name}</p>
+    //     );
+    // });
 
     return(
         <div className="container">
@@ -91,7 +115,9 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <RenderLeader leaders={props.leaders}/>
+                    <RenderLeader leaders={props.leaders.leaders}
+                    isLoading={props.leaders.isLoading}
+                    errMess={props.leaders.errMess} />
                 </div>
             </div>
         </div>

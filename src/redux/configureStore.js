@@ -6,7 +6,8 @@ import { Promotions } from './promotions';
 import { Leaders } from './leaders';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { InitialFeedback } from './forms';
+// import { InitialFeedback } from './forms';
+import { Feedback } from './forms';
 
 export const ConfigureStore = () => {
     // combine all the reducers into a single one, and use
@@ -18,8 +19,9 @@ export const ConfigureStore = () => {
             promotions: Promotions,
             leaders: Leaders,
             ...createForms({
-                feedback: InitialFeedback
+                feedback: Feedback
             })
+            // feedback: Feedback
         }),
         applyMiddleware(thunk, logger)
     );
